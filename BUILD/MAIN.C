@@ -11,6 +11,7 @@
 // Revision History:
 //     27/08/26 C0000374 Copy it from the old CHC source code,
 //                       remove ARGSCL.BLD and ARGSJAVAC.BLD files.
+//     28/08/26 C0000374 Fix a stupid crash (add a check ListHead != NULL)
 //
 //--
 
@@ -585,57 +586,59 @@ mainCRTStartup(
         ExitProcess(1);
     }
 
-    CurrentEntry = FilesToCompile.ListHead;
-    do {
-        //+
-        // Make Java compiler happy.
-        //-
-        Length = lstrlenW(CurrentEntry->String);
-        CurrentEntry->String[Length - 4] = 'j';
-        CurrentEntry->String[Length - 3] = 'a';
-        CurrentEntry->String[Length - 2] = 'v';
-        CurrentEntry->String[Length - 1] = 'a';
+    if (FilesToCompile.ListHead != NULL) {
+        CurrentEntry = FilesToCompile.ListHead;
+        do {
+            //+
+            // Make Java compiler happy.
+            //-
+            Length = lstrlenW(CurrentEntry->String);
+            CurrentEntry->String[Length - 4] = 'j';
+            CurrentEntry->String[Length - 3] = 'a';
+            CurrentEntry->String[Length - 2] = 'v';
+            CurrentEntry->String[Length - 1] = 'a';
 
-        //+
-        // Write the file name to the file.
-        //-
-        BufferSize = WideCharToMultiByte(
-            CP_UTF8,
-            0,
-            CurrentEntry->String,
-            -1,
-            NULL,
-            0,
-            NULL,
-            NULL
-        );
+            //+
+            // Write the file name to the file.
+            //-
+            BufferSize = WideCharToMultiByte(
+                CP_UTF8,
+                0,
+                CurrentEntry->String,
+                -1,
+                NULL,
+                0,
+                NULL,
+                NULL
+            );
 
-        Buffer = BLD$AllocateMemory(BufferSize + 1);
+            Buffer = BLD$AllocateMemory(BufferSize + 1);
 
-        WideCharToMultiByte(
-            CP_UTF8,
-            0,
-            CurrentEntry->String,
-            -1,
-            Buffer,
-            BufferSize,
-            NULL,
-            NULL
-        );
-        Buffer[BufferSize - 1] = '\r';
-        Buffer[BufferSize] = '\n';
+            WideCharToMultiByte(
+                CP_UTF8,
+                0,
+                CurrentEntry->String,
+                -1,
+                Buffer,
+                BufferSize,
+                NULL,
+                NULL
+            );
+            Buffer[BufferSize - 1] = '\r';
+            Buffer[BufferSize] = '\n';
 
-        WriteFile(
-            hRecompList,
-            Buffer,
-            BufferSize + 1,
-            &NumberOfBytesWritten,
-            NULL
-        );
+            WriteFile(
+                hRecompList,
+                Buffer,
+                BufferSize + 1,
+                &NumberOfBytesWritten,
+                NULL
+            );
 
-        LocalFree(Buffer);
-        CurrentEntry = CurrentEntry->Next;
-    } while (CurrentEntry != FilesToCompile.ListHead);
+            LocalFree(Buffer);
+            CurrentEntry = CurrentEntry->Next;
+        } while (CurrentEntry != FilesToCompile.ListHead);
+    }
 
     CloseHandle(hRecompList);
 
@@ -660,11 +663,13 @@ mainCRTStartup(
     //-
 
     DeleteFileW(L"BldTmp00.tmp");
-    CurrentEntry = FilesToRemove.ListHead;
-    do {
-        DeleteFileW(CurrentEntry->String);
-        CurrentEntry = CurrentEntry->Next;
-    } while (CurrentEntry != FilesToRemove.ListHead);
+    if (FilesToRemove.ListHead != NULL) {
+        CurrentEntry = FilesToRemove.ListHead;
+        do {
+            DeleteFileW(CurrentEntry->String);
+            CurrentEntry = CurrentEntry->Next;
+        } while (CurrentEntry != FilesToRemove.ListHead);
+    }
 
     //+
     // Free resources and exit.
