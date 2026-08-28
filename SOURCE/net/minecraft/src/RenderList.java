@@ -7,9 +7,9 @@ public class RenderList {
     private int field_1242_a;
     private int field_1241_b;
     private int field_1240_c;
-    private float field_1239_d;
-    private float field_1238_e;
-    private float field_1237_f;
+    private double field_1239_d;
+    private double field_1238_e;
+    private double field_1237_f;
     private IntBuffer field_1236_g = GLAllocation.createDirectIntBuffer(65536);
     private boolean field_1235_h = false;
     private boolean field_1234_i = false;
@@ -20,9 +20,9 @@ public class RenderList {
         this.field_1242_a = var1;
         this.field_1241_b = var2;
         this.field_1240_c = var3;
-        this.field_1239_d = (float)var4;
-        this.field_1238_e = (float)var6;
-        this.field_1237_f = (float)var8;
+        this.field_1239_d = var4;
+        this.field_1238_e = var6;
+        this.field_1237_f = var8;
     }
 
     public boolean func_862_a(int var1, int var2, int var3) {
@@ -50,7 +50,7 @@ public class RenderList {
 
             if (this.field_1236_g.remaining() > 0) {
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float)this.field_1242_a - this.field_1239_d, (float)this.field_1241_b - this.field_1238_e, (float)this.field_1240_c - this.field_1237_f);
+                GL11.glTranslated((double)this.field_1242_a - this.field_1239_d, (double)this.field_1241_b - this.field_1238_e, (double)this.field_1240_c - this.field_1237_f);
                 GL11.glCallLists(this.field_1236_g);
                 GL11.glPopMatrix();
             }

@@ -9,7 +9,7 @@ public class RenderPainting extends Render {
     public void func_158_a(EntityPainting var1, double var2, double var4, double var6, float var8, float var9) {
         this.rand.setSeed(187L);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)var2, (float)var4, (float)var6);
+        GL11.glTranslated(var2, var4, var6);
         GL11.glRotatef(var8, 0.0F, 1.0F, 0.0F);
         GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
         this.loadTexture("/art/kz.png");

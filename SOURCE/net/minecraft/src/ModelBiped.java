@@ -142,6 +142,7 @@ public class ModelBiped extends ModelBase {
             this.bipedRightLeg.rotationPointY = 9.0F;
             this.bipedLeftLeg.rotationPointY = 9.0F;
             this.bipedHead.rotationPointY = 1.0F;
+            this.bipedHeadwear.rotationPointY = 1.0F;
         } else {
             this.bipedBody.rotateAngleX = 0.0F;
             this.bipedRightLeg.rotationPointZ = 0.0F;
@@ -149,6 +150,7 @@ public class ModelBiped extends ModelBase {
             this.bipedRightLeg.rotationPointY = 12.0F;
             this.bipedLeftLeg.rotationPointY = 12.0F;
             this.bipedHead.rotationPointY = 0.0F;
+            this.bipedHeadwear.rotationPointY = 0.0F;
         }
 
         var10000 = this.bipedRightArm;

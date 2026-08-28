@@ -43,12 +43,14 @@ public class RenderPlayer extends RenderLiving {
         ItemStack var10 = var1.inventory.getCurrentItem();
         this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = var10 != null;
         this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = var1.isSneaking();
+        this.modelArmorChestplate.isRiding = this.modelArmor.isRiding = this.modelBipedMain.isRiding = var1.isRiding();
         double var11 = var4 - (double)var1.yOffset;
         if (var1.isSneaking() && !(var1 instanceof EntityPlayerSP)) {
             var11 -= 0.125D;
         }
 
         super.doRenderLiving(var1, var2, var11, var6, var8, var9);
+        this.modelArmorChestplate.isRiding = this.modelArmor.isRiding = this.modelBipedMain.isRiding = false;
         this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = false;
         this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = false;
     }

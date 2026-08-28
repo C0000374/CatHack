@@ -170,7 +170,7 @@ public class RenderItem extends Render {
 
     public void renderItemOverlayIntoGUI(FontRenderer var1, RenderEngine var2, ItemStack var3, int var4, int var5) {
         if (var3 != null) {
-            if (var3.stackSize > 1) {
+            if (var3.stackSize != 1) {
                 String var6 = "" + var3.stackSize;
                 GL11.glDisable(2896 /*GL_LIGHTING*/);
                 GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
