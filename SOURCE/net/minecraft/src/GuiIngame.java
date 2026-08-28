@@ -194,6 +194,15 @@ public class GuiIngame extends Gui {
             this.drawString(var8, "f: " + (MathHelper.floor_double((double)(this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
             GL11.glPopMatrix();
         }
+        else {
+            
+            var8.drawStringWithShadow(
+                "CatHack",
+                2,
+                2,
+                0xFFFFFF
+            );
+        }
 
         if (this.recordPlayingUpFor > 0) {
             float var25 = (float)this.recordPlayingUpFor - var1;
