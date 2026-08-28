@@ -1070,7 +1070,7 @@ public abstract class Minecraft implements Runnable {
                                                 }
                                             }
 
-                                            for(int var6 = 0; var6 < 9; ++var6) {
+                                            for(int var6 = 0; var6 < 10; ++var6) {
                                                 if (Keyboard.getEventKey() == 2 + var6) {
                                                     this.thePlayer.inventory.currentItem = var6;
                                                 }

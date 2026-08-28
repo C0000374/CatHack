@@ -15,6 +15,10 @@ public class InventoryPlayer implements IInventory {
     public ItemStack getCurrentItem() {
         return this.currentItem < 9 && this.currentItem >= 0 ? this.mainInventory[this.currentItem] : null;
     }
+    
+    public ItemStack getCurrentItem_ForRenderer() {
+        return this.currentItem < 36 && this.currentItem >= 0 ? this.mainInventory[this.currentItem] : null;
+    }
 
     private int getInventorySlotContainItem(int var1) {
         for(int var2 = 0; var2 < this.mainInventory.length; ++var2) {

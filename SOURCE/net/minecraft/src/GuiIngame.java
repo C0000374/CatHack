@@ -25,6 +25,9 @@ public class GuiIngame extends Gui {
     }
 
     public void renderGameOverlay(float var1, boolean var2, int var3, int var4) {
+        
+        int CountOfSlots;
+        
         ScaledResolution var5 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int var6 = var5.getScaledWidth();
         int var7 = var5.getScaledHeight();
@@ -139,7 +142,10 @@ public class GuiIngame extends Gui {
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
 
-        for(var15 = 0; var15 < 9; ++var15) {
+        if (this.mc.thePlayer.inventory.currentItem == 9) CountOfSlots = 10;
+        else CountOfSlots = 9;
+
+        for(var15 = 0; var15 < CountOfSlots; ++var15) {
             var16 = var6 / 2 - 90 + var15 * 20 + 2;
             var17 = var7 - 16 - 3;
             this.renderInventorySlot(var15, var16, var17, var1);

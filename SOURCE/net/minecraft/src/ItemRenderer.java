@@ -411,7 +411,7 @@ public class ItemRenderer {
     public void updateEquippedItem() {
         this.prevEquippedProgress = this.equippedProgress;
         EntityPlayerSP var1 = this.mc.thePlayer;
-        ItemStack var2 = var1.inventory.getCurrentItem();
+        ItemStack var2 = var1.inventory.getCurrentItem_ForRenderer();
         boolean var4 = this.equippedItemSlot == var1.inventory.currentItem && var2 == this.itemToRender;
         if (this.itemToRender == null && var2 == null) {
             var4 = true;

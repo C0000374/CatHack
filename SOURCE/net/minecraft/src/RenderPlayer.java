@@ -40,7 +40,7 @@ public class RenderPlayer extends RenderLiving {
     }
 
     public void renderPlayer(EntityPlayer var1, double var2, double var4, double var6, float var8, float var9) {
-        ItemStack var10 = var1.inventory.getCurrentItem();
+        ItemStack var10 = var1.inventory.getCurrentItem_ForRenderer();
         this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = var10 != null;
         this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = var1.isSneaking();
         this.modelArmorChestplate.isRiding = this.modelArmor.isRiding = this.modelBipedMain.isRiding = var1.isRiding();
@@ -178,7 +178,7 @@ public class RenderPlayer extends RenderLiving {
             GL11.glPopMatrix();
         }
 
-        ItemStack var21 = var1.inventory.getCurrentItem();
+        ItemStack var21 = var1.inventory.getCurrentItem_ForRenderer();
         if (var21 != null) {
             GL11.glPushMatrix();
             this.modelBipedMain.bipedRightArm.postRender(0.0625F);
