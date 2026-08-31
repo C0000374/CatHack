@@ -87,6 +87,15 @@ public class NBTTagCompound extends NBTBase {
     public boolean hasKey(String var1) {
         return this.tagMap.containsKey(var1);
     }
+    
+    public
+    NBTBase
+    GetTag(
+        String Id
+        )
+    {
+        return (NBTBase)this.tagMap.get(Id);
+    }
 
     public byte getByte(String var1) {
         return !this.tagMap.containsKey(var1) ? 0 : ((NBTTagByte)this.tagMap.get(var1)).byteValue;

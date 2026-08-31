@@ -1,0 +1,48 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     BSE$STGOBJ.JXX
+//
+// Abstract:
+//     This module implements the BSE$STGOBJ structure that implements the SeTtinG OBJect.
+//
+// Revision History:
+//     31/08/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack;
+
+#include <CATHACK.INC>
+
+import net.minecraft.src.NBTTagCompound;
+
+public abstract class BSE$STGOBJ {
+    
+    public String Id;
+    
+    public
+    BSE$STGOBJ(
+        String Id
+        )
+    {
+        this.Id = Id;
+        return;
+    }
+    
+    public
+    abstract
+    void
+    WriteToNbt(
+        OUT NBTTagCompound CompoundTag
+        );
+        
+    public
+    abstract
+    void
+    ReadFromNbt(
+        IN NBTTagCompound CompoundTag
+        );
+}

@@ -1,0 +1,53 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     BSE$MODOBJ.JXX
+//
+// Abstract:
+//     This module implements the BSE$MODOBJ structure that implements the MODule OBJect.
+//
+// Revision History:
+//     31/08/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack;
+
+#include <CATHACK.INC>
+
+import java.util.HashMap;
+
+public abstract class BSE$MODOBJ {
+    
+    public String Id;
+    public boolean IsActive = false;
+    public int KeyBinding;
+    public HashMap<String, BSE$STGOBJ> Settings = new HashMap<>();
+    public long EventsMask;
+    
+    public
+    BSE$MODOBJ(
+        IN String Id,
+        IN int KeyBinding,
+        IN long EventsMask
+        )
+    {
+        this.Id = Id;
+        this.KeyBinding = KeyBinding;
+        this.EventsMask = EventsMask;
+        return;
+    }
+    
+    public
+    void
+    HandleEvent(
+        IN int EventId,
+        IN OUT Object ParameterW OPTIONAL,
+        IN OUT Object ParameterL OPTIONAL
+        )
+    {
+        return;
+    }
+}

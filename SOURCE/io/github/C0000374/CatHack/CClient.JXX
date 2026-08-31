@@ -1,0 +1,284 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CClient.JXX
+//
+// Abstract:
+//     This is a main C.H. module.
+//
+// Revision History:
+//     31/08/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack;
+
+#include <CATHACK.INC>
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.CompressedStreamTools;
+import net.minecraft.src.NBTTagByte;
+import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.NBTTagInt;
+
+public final class CClient {
+    
+    public static Minecraft BSE$MinecraftInstance;
+    public static CClient BSE$ClientInstance;
+    public HashMap<String, BSE$MODOBJ> BSE$Modules = new HashMap<>();
+    
+    public
+    CClient(
+        IN Minecraft MinecraftInstance
+        )
+    //++
+    //
+    // Routine Description:
+    //     This function:
+    //         * initializes the CClient fields.
+    //         * registers the modules.
+    //         * loads the client configuration
+    //
+    // Parameters:
+    //     MinecraftInstance - A reference to the M.C. main class.
+    //
+    // Return Value:
+    //     None.
+    //
+    //--
+    {
+        File ConfigurationFile;
+        NBTTagCompound ClientConfigurationCompoundTag;
+        NBTTagCompound ModulesCompoundTag;
+        Iterator<BSE$MODOBJ> i;
+        BSE$MODOBJ Module;
+        
+        BSE$MinecraftInstance = MinecraftInstance;
+        BSE$ClientInstance = this;
+        
+        //+
+        // Load the client configuration from the NBT.
+        //-
+        ConfigurationFile = new File(Minecraft.getMinecraftDir(), "NBT$CH_C.GZ");
+        if (ConfigurationFile.exists()) {
+            
+            try {
+                ClientConfigurationCompoundTag = CompressedStreamTools.loadGzippedCompoundFromOutputStream(new FileInputStream(ConfigurationFile));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                ClientConfigurationCompoundTag = new NBTTagCompound();
+            }
+            
+            //+
+            // Read the modules configuration.
+            //-
+            
+            if (ClientConfigurationCompoundTag.hasKey("Modules") && (ClientConfigurationCompoundTag.GetTag("Modules") instanceof NBTTagCompound)) {
+                
+                ModulesCompoundTag = ClientConfigurationCompoundTag.getCompoundTag("Modules");
+                i = this.BSE$Modules.values().iterator();
+                while (i.hasNext()) {
+                    
+                    Module = i.next();
+                    if (ModulesCompoundTag.hasKey(Module.Id) && (ModulesCompoundTag.GetTag(Module.Id) instanceof NBTTagCompound))
+                        this.BSE$ReadModuleFromNbt(Module, ModulesCompoundTag.getCompoundTag(Module.Id));
+                }
+            }
+        }
+        return;
+    }
+    
+    public
+    void
+    CAT$WriteConfiguration(
+        )
+    //++
+    //
+    // Routine Description:
+    //     This routine writes the client configuration to the NBT$CH_C.GZ file.
+    //
+    // Parameters:
+    //     None.
+    //
+    // Return Value:
+    //     None.
+    //
+    //--
+    {
+        NBTTagCompound ClientConfigurationCompoundTag;
+        NBTTagCompound ModulesCompoundTag;
+        NBTTagCompound ModuleCompoundTag;
+        Iterator<BSE$MODOBJ> i;
+        BSE$MODOBJ Module;
+        
+        ClientConfigurationCompoundTag = new NBTTagCompound();
+        
+        //+
+        // Write the modules configuration.
+        //-
+        
+        ModulesCompoundTag = new NBTTagCompound();
+        
+        i = this.BSE$Modules.values().iterator();
+        while (i.hasNext()) {
+            
+            Module = i.next();
+            ModuleCompoundTag = new NBTTagCompound();
+            this.BSE$WriteModuleToNbt(Module, ModuleCompoundTag);
+            ModulesCompoundTag.setCompoundTag(Module.Id, ModuleCompoundTag);
+        }
+        
+        ClientConfigurationCompoundTag.setCompoundTag("Modules", ModulesCompoundTag);
+        
+        //+
+        // Write the NBT data to the NBT$CH_C.GZ file.
+        //-
+        
+        try {
+            CompressedStreamTools.writeGzippedCompoundToOutputStream(
+                ClientConfigurationCompoundTag,
+                new FileOutputStream(new File(Minecraft.getMinecraftDir(), "NBT$CH_C.GZ"))
+            );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //++
+    //
+    // API for modules.
+    //
+    //--
+    
+    public
+    void
+    BSE$RegisterModule(
+        IN BSE$MODOBJ Module
+        )
+    {
+        this.BSE$Modules.put(Module.Id.toUpperCase(), Module);
+        return;
+    }
+    
+    public
+    BSE$MODOBJ
+    BSE$GetModule(
+        IN String ModuleId
+        )
+    {
+        return this.BSE$Modules.get(ModuleId.toUpperCase());
+    }
+    
+    public
+    void
+    BSE$ToggleModule(
+        IN BSE$MODOBJ Module
+        )
+    {
+        Module.IsActive = !Module.IsActive;
+        if (Module.IsActive) {
+            Module.HandleEvent(ME$ENABLE, null, null);
+            BSE$MinecraftInstance.ingameGUI.addChatMessage("%CATHACK-I-TOGGLE, " + Module.Id + " was enabled.");
+        }
+        else {
+            Module.HandleEvent(ME$DISABLE, null, null);
+            BSE$MinecraftInstance.ingameGUI.addChatMessage("%CATHACK-I-TOGGLE, " + Module.Id + " was disabled.");
+        }
+        return;
+    }
+    
+    public
+    void
+    BSE$SendEvent(
+        IN int EventId,
+        IN OUT Object ParameterW OPTIONAL,
+        IN OUT Object ParameterL OPTIONAL
+        )
+    {
+        Iterator<BSE$MODOBJ> i;
+        BSE$MODOBJ Module;
+        
+        i = this.BSE$Modules.values().iterator();
+        while (i.hasNext()) {
+            Module = i.next();
+            if (Module.IsActive && (Module.EventsMask & ME$_BIT(EventId)) != 0)
+                Module.HandleEvent(EventId, ParameterW, ParameterL);
+        }
+        return;
+    }
+    
+    public
+    void
+    BSE$WriteModuleToNbt(
+        IN BSE$MODOBJ Module,
+        OUT NBTTagCompound CompoundTag
+        )
+    {
+        NBTTagCompound SettingsCompoundTag;
+        Iterator<BSE$STGOBJ> i;
+        
+        CompoundTag.setBoolean("IsActive", Module.IsActive);
+        CompoundTag.setInteger("KeyBinding", Module.KeyBinding);
+        
+        SettingsCompoundTag = new NBTTagCompound();
+        i = Module.Settings.values().iterator();
+        while (i.hasNext()) i.next().WriteToNbt(SettingsCompoundTag);
+        CompoundTag.setCompoundTag("Settings", SettingsCompoundTag);
+        return;
+    }
+    
+    public
+    void
+    BSE$ReadModuleFromNbt(
+        OUT BSE$MODOBJ Module,
+        IN NBTTagCompound CompoundTag
+        )
+    {
+        NBTTagCompound SettingsCompoundTag;
+        Iterator<BSE$STGOBJ> i;
+        
+        if (CompoundTag.hasKey("IsActive") && (CompoundTag.GetTag("IsActive") instanceof NBTTagByte))
+            Module.IsActive = CompoundTag.getBoolean("IsActive");
+        
+        if (CompoundTag.hasKey("KeyBinding") && (CompoundTag.GetTag("KeyBinding") instanceof NBTTagInt))
+            Module.KeyBinding = CompoundTag.getInteger("KeyBinding");
+        
+        if (CompoundTag.hasKey("Settings") && (CompoundTag.GetTag("Settings") instanceof NBTTagCompound)) {
+            
+            SettingsCompoundTag = CompoundTag.getCompoundTag("Settings");
+            i = Module.Settings.values().iterator();
+            while (i.hasNext()) i.next().ReadFromNbt(SettingsCompoundTag);
+        }
+        return;
+    }
+    
+    public
+    void
+    BSE$RegisterModuleSetting(
+        BSE$MODOBJ Module,
+        BSE$STGOBJ Setting
+        )
+    {
+        Module.Settings.put(Setting.Id.toUpperCase(), Setting);
+        return;
+    }
+    
+    public
+    BSE$STGOBJ
+    BSE$GetModuleSetting(
+        BSE$MODOBJ Module,
+        String SettingId
+        )
+    {
+        return Module.Settings.get(SettingId.toUpperCase());
+    }
+}

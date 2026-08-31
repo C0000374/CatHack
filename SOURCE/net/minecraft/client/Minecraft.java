@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import io.github.C0000374.CatHack.CClient;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -163,6 +164,7 @@ public abstract class Minecraft implements Runnable {
     public boolean isRaining = false;
     long systemTime = System.currentTimeMillis();
     private int joinPlayerCounter = 0;
+    public CClient Client = new CClient(this);
 
     public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
         StatList.func_27360_a();
@@ -456,6 +458,7 @@ public abstract class Minecraft implements Runnable {
 
     public void shutdownMinecraftApplet() {
         try {
+            this.Client.CAT$WriteConfiguration();
             this.statFileWriter.func_27175_b();
             this.statFileWriter.syncStats();
             if (this.mcApplet != null) {
