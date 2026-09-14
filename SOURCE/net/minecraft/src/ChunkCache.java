@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.CFullBright;
+
 public class ChunkCache implements IBlockAccess {
     private int chunkX;
     private int chunkZ;
@@ -63,6 +65,9 @@ public class ChunkCache implements IBlockAccess {
     }
 
     public int getLightValueExt(int var1, int var2, int var3, boolean var4) {
+        
+        if (CFullBright.Instance.IsActive) return 15;
+        
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             int var5;
             int var6;

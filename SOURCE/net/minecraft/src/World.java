@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.CFullBright;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -543,6 +544,9 @@ public class World implements IBlockAccess {
     }
 
     public int getBlockLightValue_do(int var1, int var2, int var3, boolean var4) {
+        
+        if (CFullBright.Instance.IsActive) return 15;
+        
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             if (var4) {
                 int var5 = this.getBlockId(var1, var2, var3);
