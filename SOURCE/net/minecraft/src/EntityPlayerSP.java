@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.CNoFallDamage;
 import net.minecraft.client.Minecraft;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -247,5 +248,15 @@ public class EntityPlayerSP extends EntityPlayer {
         }
 
         return false;
+    }
+    
+    @Override
+    protected void
+    fall(
+        float Distance
+        )
+    {
+        if (CNoFallDamage.Instance.IsActive) this.addStat(StatList.distanceFallenStat, (int)Math.round((double)Distance * 100.0));
+        else super.fall(Distance);
     }
 }

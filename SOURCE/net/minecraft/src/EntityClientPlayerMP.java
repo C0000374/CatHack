@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.CNoFallDamage;
 import net.minecraft.client.Minecraft;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
@@ -36,6 +37,9 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     }
 
     public void sendMotionUpdates() {
+        
+        boolean OnGround;
+        
         if (this.inventoryUpdateTickCounter++ == 20) {
             this.sendInventoryChanged();
             this.inventoryUpdateTickCounter = 0;
@@ -60,6 +64,10 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
         double var12 = (double)(this.rotationPitch - this.oldRotationPitch);
         boolean var14 = var4 != 0.0D || var6 != 0.0D || var2 != 0.0D || var8 != 0.0D;
         boolean var15 = var10 != 0.0D || var12 != 0.0D;
+        
+        OnGround = this.onGround;
+        if (CNoFallDamage.Instance.IsActive) this.onGround = true;
+        
         if (this.ridingEntity != null) {
             if (var15) {
                 this.sendQueue.addToSendQueue(new Packet11PlayerPosition(this.motionX, -999.0D, -999.0D, this.motionZ, this.onGround));
@@ -85,7 +93,8 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
                 this.timeSinceMoved = 0;
             }
         }
-
+        
+        this.onGround = OnGround;
         this.wasOnGround = this.onGround;
         if (var14) {
             this.oldPosX = this.posX;

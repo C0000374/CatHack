@@ -10,6 +10,7 @@
 //
 // Revision History:
 //     31/08/26 C0000374 Initial creation.
+//     14/09/26 C0000374 Add a command line.
 //
 //--
 
@@ -17,6 +18,8 @@ package io.github.C0000374.CatHack;
 
 #include <CATHACK.INC>
 
+import io.github.C0000374.CatHack.Commands.CToggle;
+import io.github.C0000374.CatHack.Modules.CNoFallDamage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,9 +33,11 @@ import net.minecraft.src.NBTTagInt;
 
 public final class CClient {
     
+    public static final String Version = VERSION; // For .JAVA files.
     public static Minecraft BSE$MinecraftInstance;
     public static CClient BSE$ClientInstance;
     public HashMap<String, BSE$MODOBJ> BSE$Modules = new HashMap<>();
+    public HashMap<String, BSE$CMDOBJ> BSE$Commands = new HashMap<>();
     
     public
     CClient(
@@ -62,6 +67,14 @@ public final class CClient {
         
         BSE$MinecraftInstance = MinecraftInstance;
         BSE$ClientInstance = this;
+        
+        //+
+        // Register commands and modules.
+        //-
+        
+        this.BSE$RegisterCommand(new CToggle(this));
+        
+        this.BSE$RegisterModule(new CNoFallDamage());
         
         //+
         // Load the client configuration from the NBT.
@@ -151,6 +164,61 @@ public final class CClient {
         catch (Exception e) {
             e.printStackTrace();
         }
+        return;
+    }
+    
+    //++
+    //
+    // API for CMD.
+    //
+    //--
+    
+    public
+    void
+    BSE$RegisterCommand(
+        IN BSE$CMDOBJ Command
+        )
+    {
+        this.BSE$Commands.put(Command.Id.toUpperCase(), Command);
+        return;
+    }
+    
+    public
+    BSE$CMDOBJ
+    BSE$GetCommand(
+        IN String Id
+        )
+    {
+        return this.BSE$Commands.get(Id.toUpperCase());
+    }
+    
+    public
+    void
+    BSE$ExecuteCommand(
+        IN String Command
+        )
+    {
+        String[] Arguments;
+        BSE$CMDOBJ CommandHandler;
+        
+        Arguments = Command.split(" ");
+        if (Arguments.length > 0) {
+            
+            CommandHandler = BSE$GetCommand(Arguments[0]);
+            if (CommandHandler == null) this.BSE$InvalidCommand(Command);
+            else CommandHandler.Execute(Arguments, Command);
+        }
+        return;
+    }
+    
+    public
+    void
+    BSE$InvalidCommand(
+        IN String Command
+        )
+    {
+        BSE$MinecraftInstance.ingameGUI.addChatMessage("%CATHACK-E-INVCMD, Invalid command \"" + Command + "\".");
+        return;
     }
     
     //++

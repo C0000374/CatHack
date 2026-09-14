@@ -1,0 +1,34 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CNoFallDamage.JXX
+//
+// Abstract:
+//     This module implements a hack that disables a fall damage.
+//
+// Revision History:
+//     14/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack.Modules;
+
+#include <CATHACK.INC>
+
+import io.github.C0000374.CatHack.BSE$MODOBJ;
+import org.lwjgl.input.Keyboard;
+
+public final class CNoFallDamage extends BSE$MODOBJ {
+    
+    public static CNoFallDamage Instance;
+    
+    public
+    CNoFallDamage(
+        )
+    {
+        super("NoFallDamage", Keyboard.KEY_NONE, 0);
+        Instance = this;
+    }
+}

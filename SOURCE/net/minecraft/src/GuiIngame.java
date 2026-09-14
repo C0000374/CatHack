@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.CClient;
+import io.github.C0000374.CatHack.Gui.CConsole;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -196,12 +198,7 @@ public class GuiIngame extends Gui {
         }
         else {
             
-            var8.drawStringWithShadow(
-                "CatHack",
-                2,
-                2,
-                0xFFFFFF
-            );
+            var8.drawStringWithShadow("CatHack " + CClient.Version, 2, 2, 0xFFFFFF);
         }
 
         if (this.recordPlayingUpFor > 0) {
@@ -229,7 +226,7 @@ public class GuiIngame extends Gui {
 
         byte var26 = 10;
         boolean var31 = false;
-        if (this.mc.currentScreen instanceof GuiChat) {
+        if (this.mc.currentScreen instanceof GuiChat || this.mc.currentScreen instanceof CConsole) {
             var26 = 20;
             var31 = true;
         }

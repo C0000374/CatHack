@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import io.github.C0000374.CatHack.CClient;
+import io.github.C0000374.CatHack.Gui.CConsole;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -1071,6 +1072,8 @@ public abstract class Minecraft implements Runnable {
                                                 if (this.isMultiplayerWorld() && Keyboard.getEventKey() == this.gameSettings.keyBindChat.keyCode) {
                                                     this.displayGuiScreen(new GuiChat());
                                                 }
+                                                
+                                                if (Keyboard.getEventKey() == Keyboard.KEY_Y) this.displayGuiScreen(new CConsole());
                                             }
 
                                             for(int var6 = 0; var6 < 10; ++var6) {

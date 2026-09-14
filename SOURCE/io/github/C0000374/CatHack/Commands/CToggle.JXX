@@ -1,0 +1,56 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CToggle.JXX
+//
+// Abstract:
+//     This module implements a command that toggles a client module.
+//
+// Revision History:
+//     14/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack.Commands;
+
+#include <CATHACK.INC>
+
+import io.github.C0000374.CatHack.BSE$CMDOBJ;
+import io.github.C0000374.CatHack.BSE$MODOBJ;
+import io.github.C0000374.CatHack.CClient;
+
+public final class CToggle extends BSE$CMDOBJ {
+    
+    public CClient ClientInstance;
+    
+    public
+    CToggle(
+        IN CClient ClientInstance
+        )
+    {
+        super("Toggle");
+        this.ClientInstance = ClientInstance;
+        return;
+    }
+    
+    @Override
+    public
+    void
+    Execute(
+        IN String[] Arguments,
+        IN String Command
+        )
+    {
+        BSE$MODOBJ Module;
+        
+        if (Arguments.length != 2) ClientInstance.BSE$InvalidCommand(Command);
+        else {
+            Module = ClientInstance.BSE$GetModule(Arguments[1]);
+            if (Module == null) ClientInstance.BSE$InvalidCommand(Command);
+            else ClientInstance.BSE$ToggleModule(Module);
+        }
+        return;
+    }
+}

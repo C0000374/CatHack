@@ -1,0 +1,40 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     BSE$CMDOBJ.JXX
+//
+// Abstract:
+//     This module implements the CoMmanD OBJect.
+//
+// Revision History:
+//     14/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack;
+
+#include <CATHACK.INC>
+
+public abstract class BSE$CMDOBJ {
+    
+    public String Id;
+    
+    public
+    BSE$CMDOBJ(
+        IN String Id
+        )
+    {
+        this.Id = Id;
+        return;
+    }
+    
+    public
+    abstract
+    void
+    Execute(
+        IN String[] Arguments,
+        IN String Command
+        );
+}
