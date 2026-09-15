@@ -37,6 +37,7 @@ public final class CFullBright extends BSE$MODOBJ {
         return;
     }
     
+    @Override
     public
     void
     HandleEvent(

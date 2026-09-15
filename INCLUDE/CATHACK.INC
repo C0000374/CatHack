@@ -30,10 +30,16 @@
 
 #define ME$_BIT(EventId) (1L << (EventId))
 
-#define ME$ENABLE   1
+#define ME$ENABLE   			1
 // W = null
 // L = null
-#define ME$DISABLE  2
+#define ME$DISABLE  			2
+// W = null
+// L = null
+#define ME$PLAYER_UPDATE_PRE	3
+// W = null
+// L = null
+#define ME$PLAYER_UPDATE_POST	4
 // W = null
 // L = null
 

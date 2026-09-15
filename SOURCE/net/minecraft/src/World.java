@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import io.github.C0000374.CatHack.Modules.CFullBright;
+import io.github.C0000374.CatHack.Modules.CWalkOnLiquid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -975,7 +976,9 @@ public class World implements IBlockAccess {
                     for(int var11 = var5 - 1; var11 < var6; ++var11) {
                         Block var12 = Block.blocksList[this.getBlockId(var9, var11, var10)];
                         if (var12 != null) {
-                            var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
+                            if (CWalkOnLiquid.Instance.IsActive && (var1 instanceof EntityPlayerSP) && var12.blockID >= 8 && var12.blockID <= 11)
+                                var12.getCollidingBoundingBoxes_ForWalkOnLiquid(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
+                            else var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
                         }
                     }
                 }

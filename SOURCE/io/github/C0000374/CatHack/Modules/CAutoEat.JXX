@@ -1,0 +1,66 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CAutoEat.JXX
+//
+// Abstract:
+//     This hack automatically heals the player.
+//
+// Revision History:
+//     15/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack.Modules;
+
+#include <CATHACK.INC>
+
+import io.github.C0000374.CatHack.BSE$MODOBJ;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.ItemFood;
+import net.minecraft.src.ItemStack;
+import org.lwjgl.input.Keyboard;
+
+public final class CAutoEat extends BSE$MODOBJ {
+
+    public Minecraft MinecraftInstance;
+    
+    public
+    CAutoEat(
+        IN Minecraft MinecraftInstance
+        )
+    {
+        super("AutoEat", Keyboard.KEY_NONE, ME$_BIT(ME$PLAYER_UPDATE_PRE));
+        this.MinecraftInstance = MinecraftInstance;
+    }
+    
+    @Override
+    public
+    void
+    HandleEvent(
+        IN int EventId,
+        IN OUT Object ParameterW OPTIONAL,
+        IN OUT Object ParameterL OPTIONAL
+        )
+    {
+        int i;
+        int CurrentItem;
+        ItemStack Stack;
+        
+        if (this.MinecraftInstance.thePlayer.health < 20) {
+            for (i = 0; i < 9; i++) {
+                Stack = this.MinecraftInstance.thePlayer.inventory.mainInventory[i];
+                if (Stack != null && (Stack.getItem() instanceof ItemFood)) {
+                    CurrentItem = this.MinecraftInstance.thePlayer.inventory.currentItem;
+                    this.MinecraftInstance.thePlayer.inventory.currentItem = i;
+                    this.MinecraftInstance.playerController.sendUseItem(this.MinecraftInstance.thePlayer, this.MinecraftInstance.theWorld, Stack);
+                    this.MinecraftInstance.thePlayer.inventory.currentItem = CurrentItem;
+                    break;
+                }
+            }
+        }
+        return;
+    }
+}

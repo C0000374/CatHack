@@ -3,13 +3,13 @@
 // Copyright (C) C0000374
 //
 // Module:
-//     CNoFallDamage.JXX
+//     CWalkOnLiquid.JXX
 //
 // Abstract:
-//     This module implements a hack that disables a fall damage.
+//     This module implements the WalkOnLiquid hack.
 //
 // Revision History:
-//     14/09/26 C0000374 Initial creation.
+//     15/09/26 C0000374 Initial creation.
 //
 //--
 
@@ -20,15 +20,15 @@ package io.github.C0000374.CatHack.Modules;
 import io.github.C0000374.CatHack.BSE$MODOBJ;
 import org.lwjgl.input.Keyboard;
 
-public final class CNoFallDamage extends BSE$MODOBJ {
+public final class CWalkOnLiquid extends BSE$MODOBJ {
     
-    public static CNoFallDamage Instance;
+    public static CWalkOnLiquid Instance;
     
     public
-    CNoFallDamage(
+    CWalkOnLiquid(
         )
     {
-        super("NoFallDamage", Keyboard.KEY_NONE, 0);
+        super("WalkOnLiquid", Keyboard.KEY_NONE, 0);
         Instance = this;
         return;
     }

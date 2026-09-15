@@ -277,6 +277,14 @@ public class Block {
         }
 
     }
+    
+    public void getCollidingBoundingBoxes_ForWalkOnLiquid(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
+        AxisAlignedBB var7 = AxisAlignedBB.getBoundingBoxFromPool((double)var2 + this.minX, (double)var3 + this.minY, (double)var4 + this.minZ, (double)var2 + this.maxX, (double)var3 + this.maxY, (double)var4 + this.maxZ);
+        if (var7 != null && var5.intersectsWith(var7)) {
+            var6.add(var7);
+        }
+
+    }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return AxisAlignedBB.getBoundingBoxFromPool((double)var2 + this.minX, (double)var3 + this.minY, (double)var4 + this.minZ, (double)var2 + this.maxX, (double)var3 + this.maxY, (double)var4 + this.maxZ);
