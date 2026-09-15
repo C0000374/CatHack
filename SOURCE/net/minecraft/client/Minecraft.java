@@ -1074,6 +1074,8 @@ public abstract class Minecraft implements Runnable {
                                                 }
                                                 
                                                 if (Keyboard.getEventKey() == Keyboard.KEY_Y) this.displayGuiScreen(new CConsole());
+                                                
+                                                this.Client.UI$HandleKeyEvent(Keyboard.getEventKey());
                                             }
 
                                             for(int var6 = 0; var6 < 10; ++var6) {

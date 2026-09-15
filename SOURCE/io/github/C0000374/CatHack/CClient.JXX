@@ -18,6 +18,7 @@ package io.github.C0000374.CatHack;
 
 #include <CATHACK.INC>
 
+import io.github.C0000374.CatHack.Commands.CBind;
 import io.github.C0000374.CatHack.Commands.CToggle;
 import io.github.C0000374.CatHack.Modules.CFullBright;
 import io.github.C0000374.CatHack.Modules.CNoFallDamage;
@@ -73,6 +74,7 @@ public final class CClient {
         // Register commands and modules.
         //-
         
+        this.BSE$RegisterCommand(new CBind(this));
         this.BSE$RegisterCommand(new CToggle(this));
         
         this.BSE$RegisterModule(new CFullBright(MinecraftInstance));
@@ -334,8 +336,8 @@ public final class CClient {
     public
     void
     BSE$RegisterModuleSetting(
-        BSE$MODOBJ Module,
-        BSE$STGOBJ Setting
+        IN BSE$MODOBJ Module,
+        IN BSE$STGOBJ Setting
         )
     {
         Module.Settings.put(Setting.Id.toUpperCase(), Setting);
@@ -345,10 +347,33 @@ public final class CClient {
     public
     BSE$STGOBJ
     BSE$GetModuleSetting(
-        BSE$MODOBJ Module,
-        String SettingId
+        IN BSE$MODOBJ Module,
+        IN String SettingId
         )
     {
         return Module.Settings.get(SettingId.toUpperCase());
+    }
+    
+    //++
+    //
+    // UI
+    //
+    //--
+    
+    public
+    void
+    UI$HandleKeyEvent(
+        IN int Key
+        )
+    {
+        Iterator<BSE$MODOBJ> i;
+        BSE$MODOBJ Module;
+        
+        i = this.BSE$Modules.values().iterator();
+        while (i.hasNext()) {
+            Module = i.next();
+            if (Module.KeyBinding == Key) this.BSE$ToggleModule(Module);
+        }
+        return;
     }
 }

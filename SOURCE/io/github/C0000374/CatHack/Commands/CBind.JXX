@@ -1,0 +1,69 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CBind.JXX
+//
+// Abstract:
+//     This is the BIND command implementation.
+//
+// Revision History:
+//     15/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack.Commands;
+
+#include <CATHACK.INC>
+
+import io.github.C0000374.CatHack.BSE$CMDOBJ;
+import io.github.C0000374.CatHack.BSE$MODOBJ;
+import io.github.C0000374.CatHack.CClient;
+import java.lang.reflect.Field;
+import org.lwjgl.input.Keyboard;
+
+public final class CBind extends BSE$CMDOBJ {
+    
+    public CClient ClientInstance;
+    
+    public
+    CBind(
+        IN CClient ClientInstance
+        )
+    {
+        super("Bind");
+        this.ClientInstance = ClientInstance;
+        return;
+    }
+    
+    @Override
+    public
+    void
+    Execute(
+        IN String[] Arguments,
+        IN String Command
+        )
+    {
+        BSE$MODOBJ Module;
+        Field Key;
+        
+        if (Arguments.length < 3) this.ClientInstance.BSE$InvalidCommand(Command);
+        else {
+            
+            Module = this.ClientInstance.BSE$GetModule(Arguments[1]);
+            if (Module == null) this.ClientInstance.BSE$InvalidCommand(Command);
+            else {
+                
+                try {
+                    Key = Keyboard.class.getField("KEY_" + Arguments[2].toUpperCase());
+                    Module.KeyBinding = (Integer)Key.get(null);
+                }
+                catch (Exception e) {
+                    this.ClientInstance.BSE$InvalidCommand(Command);
+                }
+            }
+        }
+        return;
+    }
+}
