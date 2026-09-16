@@ -13,12 +13,11 @@
 //
 //--
 
-package io.github.C0000374.CatHack.Modules;
+package io.github.C0000374.CatHack.Modules.Player;
 
 #include <CATHACK.INC>
 
 import io.github.C0000374.CatHack.BSE$MODOBJ;
-import org.lwjgl.input.Keyboard;
 
 public final class CNoFallDamage extends BSE$MODOBJ {
     
@@ -28,7 +27,7 @@ public final class CNoFallDamage extends BSE$MODOBJ {
     CNoFallDamage(
         )
     {
-        super("NoFallDamage", Keyboard.KEY_NONE, 0);
+        super("NoFallDamage", 0);
         Instance = this;
         return;
     }

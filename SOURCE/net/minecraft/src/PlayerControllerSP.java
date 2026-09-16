@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.World.CInstantMine;
 import net.minecraft.client.Minecraft;
 
 public class PlayerControllerSP extends PlayerController {
@@ -63,6 +64,9 @@ public class PlayerControllerSP extends PlayerController {
             --this.blockHitWait;
         } else {
             if (var1 == this.field_1074_c && var2 == this.field_1073_d && var3 == this.field_1072_e) {
+                
+                if (CInstantMine.Instance.IsActive) this.sendBlockRemoved(var1, var2, var3, var4);
+                
                 int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
                 if (var5 == 0) {
                     return;

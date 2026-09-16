@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.Modules.CFullBright;
+import io.github.C0000374.CatHack.Modules.Render.CFullBright;
 
 public class ChunkCache implements IBlockAccess {
     private int chunkX;

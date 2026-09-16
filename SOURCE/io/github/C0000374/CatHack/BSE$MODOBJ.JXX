@@ -30,12 +30,10 @@ public abstract class BSE$MODOBJ {
     public
     BSE$MODOBJ(
         IN String Id,
-        IN int KeyBinding,
         IN long EventsMask
         )
     {
         this.Id = Id;
-        this.KeyBinding = KeyBinding;
         this.EventsMask = EventsMask;
         return;
     }

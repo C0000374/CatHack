@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.Modules.CNoFallDamage;
+import io.github.C0000374.CatHack.Modules.Player.CNoFallDamage;
 import net.minecraft.client.Minecraft;
 
 public class EntityPlayerSP extends EntityPlayer {

@@ -1,0 +1,31 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CInstantMine.JXX
+//
+// Revision History:
+//     16/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.CatHack.Modules.World;
+
+#include <CATHACK.INC>
+
+import io.github.C0000374.CatHack.BSE$MODOBJ;
+
+public final class CInstantMine extends BSE$MODOBJ {
+
+    public static CInstantMine Instance;
+
+    public
+    CInstantMine(
+        )
+    {
+        super("InstantMine", 0);
+        Instance = this;
+        return;
+    }
+}

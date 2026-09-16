@@ -21,10 +21,11 @@ package io.github.C0000374.CatHack;
 
 import io.github.C0000374.CatHack.Commands.CBind;
 import io.github.C0000374.CatHack.Commands.CToggle;
-import io.github.C0000374.CatHack.Modules.CAutoEat;
-import io.github.C0000374.CatHack.Modules.CFullBright;
-import io.github.C0000374.CatHack.Modules.CNoFallDamage;
-import io.github.C0000374.CatHack.Modules.CWalkOnLiquid;
+import io.github.C0000374.CatHack.Modules.Combat.CAutoEat;
+import io.github.C0000374.CatHack.Modules.Movement.CWalkOnLiquid;
+import io.github.C0000374.CatHack.Modules.Player.CNoFallDamage;
+import io.github.C0000374.CatHack.Modules.Render.CFullBright;
+import io.github.C0000374.CatHack.Modules.World.CInstantMine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -82,6 +83,7 @@ public final class CClient {
         
         this.BSE$RegisterModule(new CAutoEat(MinecraftInstance));
         this.BSE$RegisterModule(new CFullBright(MinecraftInstance));
+        this.BSE$RegisterModule(new CInstantMine());
         this.BSE$RegisterModule(new CNoFallDamage());
         this.BSE$RegisterModule(new CWalkOnLiquid());
         

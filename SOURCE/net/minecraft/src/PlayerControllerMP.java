@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import io.github.C0000374.CatHack.Modules.World.CInstantMine;
 import net.minecraft.client.Minecraft;
 
 public class PlayerControllerMP extends PlayerController {
@@ -68,6 +69,14 @@ public class PlayerControllerMP extends PlayerController {
 
     public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
         if (this.isHittingBlock) {
+            
+            if (CInstantMine.Instance.IsActive) {
+                
+                this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, var1, var2, var3, var4));
+                this.netClientHandler.addToSendQueue(new Packet14BlockDig(2, var1, var2, var3, var4));
+                this.sendBlockRemoved(var1, var2, var3, var4);
+            }
+            
             this.syncCurrentPlayItem();
             if (this.blockHitDelay > 0) {
                 --this.blockHitDelay;

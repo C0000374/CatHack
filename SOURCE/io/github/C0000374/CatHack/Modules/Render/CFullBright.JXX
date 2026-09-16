@@ -13,13 +13,12 @@
 //
 //--
 
-package io.github.C0000374.CatHack.Modules;
+package io.github.C0000374.CatHack.Modules.Render;
 
 #include <CATHACK.INC>
 
 import io.github.C0000374.CatHack.BSE$MODOBJ;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
 
 public final class CFullBright extends BSE$MODOBJ {
     
@@ -31,7 +30,7 @@ public final class CFullBright extends BSE$MODOBJ {
         IN Minecraft MinecraftInstance
         )
     {
-        super("FullBright", Keyboard.KEY_NONE, ME$_BIT(ME$ENABLE) | ME$_BIT(ME$DISABLE));
+        super("FullBright", ME$_BIT(ME$ENABLE) | ME$_BIT(ME$DISABLE));
         this.MinecraftInstance = MinecraftInstance;
         Instance = this;
         return;

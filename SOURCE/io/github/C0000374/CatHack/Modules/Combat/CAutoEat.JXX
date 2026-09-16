@@ -13,7 +13,7 @@
 //
 //--
 
-package io.github.C0000374.CatHack.Modules;
+package io.github.C0000374.CatHack.Modules.Combat;
 
 #include <CATHACK.INC>
 
@@ -21,7 +21,6 @@ import io.github.C0000374.CatHack.BSE$MODOBJ;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.ItemFood;
 import net.minecraft.src.ItemStack;
-import org.lwjgl.input.Keyboard;
 
 public final class CAutoEat extends BSE$MODOBJ {
 
@@ -32,8 +31,9 @@ public final class CAutoEat extends BSE$MODOBJ {
         IN Minecraft MinecraftInstance
         )
     {
-        super("AutoEat", Keyboard.KEY_NONE, ME$_BIT(ME$PLAYER_UPDATE_PRE));
+        super("AutoEat", ME$_BIT(ME$PLAYER_UPDATE_PRE));
         this.MinecraftInstance = MinecraftInstance;
+        return;
     }
     
     @Override

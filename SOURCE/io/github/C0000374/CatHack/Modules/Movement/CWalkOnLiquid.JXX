@@ -13,12 +13,11 @@
 //
 //--
 
-package io.github.C0000374.CatHack.Modules;
+package io.github.C0000374.CatHack.Modules.Movement;
 
 #include <CATHACK.INC>
 
 import io.github.C0000374.CatHack.BSE$MODOBJ;
-import org.lwjgl.input.Keyboard;
 
 public final class CWalkOnLiquid extends BSE$MODOBJ {
     
@@ -28,7 +27,7 @@ public final class CWalkOnLiquid extends BSE$MODOBJ {
     CWalkOnLiquid(
         )
     {
-        super("WalkOnLiquid", Keyboard.KEY_NONE, 0);
+        super("WalkOnLiquid", 0);
         Instance = this;
         return;
     }
