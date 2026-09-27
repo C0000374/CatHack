@@ -21,6 +21,7 @@ public final class CFreeCamera extends BSE$MODOBJ {
     
     public static CFreeCamera Instance;
     public Minecraft MinecraftInstance;
+    public boolean ThirdPersonView;
     
     public
     CFreeCamera(
@@ -44,11 +45,13 @@ public final class CFreeCamera extends BSE$MODOBJ {
     {
         switch (EventId) {
         case ME$ENABLE:
+            this.ThirdPersonView = this.MinecraftInstance.gameSettings.thirdPersonView;
             this.MinecraftInstance.renderViewEntity = new CCameraEntity();
             break;
             
         case ME$DISABLE:
             this.MinecraftInstance.renderViewEntity = this.MinecraftInstance.thePlayer;
+            this.MinecraftInstance.gameSettings.thirdPersonView = this.ThirdPersonView;
             break;
             
         case ME$PLAYER_UPDATE_POST:

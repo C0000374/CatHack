@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import io.github.C0000374.CatHack.CClient;
 import io.github.C0000374.CatHack.Gui.CConsole;
+import io.github.C0000374.CatHack.Modules.Render.FreeCamera.CFreeCamera;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -561,7 +562,7 @@ public abstract class Minecraft implements Runnable {
                         Display.update();
                     }
 
-                    if (this.thePlayer != null && this.thePlayer.isEntityInsideOpaqueBlock()) {
+                    if (this.thePlayer != null && this.thePlayer.isEntityInsideOpaqueBlock() || CFreeCamera.Instance.IsActive) {
                         this.gameSettings.thirdPersonView = false;
                     }
 
