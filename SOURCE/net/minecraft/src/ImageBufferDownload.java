@@ -11,6 +11,11 @@ public class ImageBufferDownload implements ImageBuffer {
     private int imageHeight;
 
     public BufferedImage parseUserSkin(BufferedImage var1) {
+        
+        int X;
+        int Y;
+        int[] Buffer;
+        
         if (var1 == null) {
             return null;
         } else {
@@ -25,6 +30,13 @@ public class ImageBufferDownload implements ImageBuffer {
             this.setAreaTransparent(32, 0, 64, 32);
             this.setAreaOpaque(0, 16, 64, 32);
             boolean var4 = false;
+
+            Buffer = new int[64];
+            for (Y = 0; Y < 8; Y++) for (X = 16; X < 24; X++) Buffer[(X - 16) + Y * 8] = imageData[X + Y * imageWidth];
+            for (Y = 0; Y < 8; Y++) for (X = 16; X < 24; X++) imageData[X + Y * imageWidth] = Buffer[(23 - X) + (7 - Y) * 8];
+
+            for (Y = 0; Y < 8; Y++) for (X = 48; X < 56; X++) Buffer[(X - 48) + Y * 8] = imageData[X + Y * imageWidth];
+            for (Y = 0; Y < 8; Y++) for (X = 48; X < 56; X++) imageData[X + Y * imageWidth] = Buffer[(55 - X) + (7 - Y) * 8];
 
             int var5;
             int var6;

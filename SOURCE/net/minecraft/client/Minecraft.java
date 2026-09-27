@@ -1336,6 +1336,8 @@ public abstract class Minecraft implements Runnable {
             }
 
             this.renderViewEntity = this.thePlayer;
+            
+            this.Client.BSE$SendEvent(1, null, null);
         } else {
             this.thePlayer = null;
         }

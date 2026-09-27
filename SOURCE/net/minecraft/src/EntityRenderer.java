@@ -77,12 +77,12 @@ public class EntityRenderer {
     }
 
     public void getMouseOver(float var1) {
-        if (this.mc.renderViewEntity != null) {
+        if (this.mc.thePlayer != null) {
             if (this.mc.theWorld != null) {
                 double var2 = (double)this.mc.playerController.getBlockReachDistance();
-                this.mc.objectMouseOver = this.mc.renderViewEntity.rayTrace(var2, var1);
+                this.mc.objectMouseOver = this.mc.thePlayer.rayTrace(var2, var1);
                 double var4 = var2;
-                Vec3D var6 = this.mc.renderViewEntity.getPosition(var1);
+                Vec3D var6 = this.mc.thePlayer.getPosition(var1);
                 if (this.mc.objectMouseOver != null) {
                     var4 = this.mc.objectMouseOver.hitVec.distanceTo(var6);
                 }
@@ -98,11 +98,11 @@ public class EntityRenderer {
                     var2 = var4;
                 }
 
-                Vec3D var7 = this.mc.renderViewEntity.getLook(var1);
+                Vec3D var7 = this.mc.thePlayer.getLook(var1);
                 Vec3D var8 = var6.addVector(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2);
                 this.pointedEntity = null;
                 float var9 = 1.0F;
-                List var10 = this.mc.theWorld.getEntitiesWithinAABBExcludingEntity(this.mc.renderViewEntity, this.mc.renderViewEntity.boundingBox.addCoord(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2).expand((double)var9, (double)var9, (double)var9));
+                List var10 = this.mc.theWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, this.mc.thePlayer.boundingBox.addCoord(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2).expand((double)var9, (double)var9, (double)var9));
                 double var11 = 0.0D;
 
                 for(int var13 = 0; var13 < var10.size(); ++var13) {
@@ -351,7 +351,7 @@ public class EntityRenderer {
                 var5 = this.mouseFilterYAxis.smooth(var5, 0.05F * var3);
             }
 
-            this.mc.thePlayer.setAngles(var4, var5 * (float)var6);
+            this.mc.renderViewEntity.setAngles(var4, var5 * (float)var6);
         }
 
         if (!this.mc.skipRenderWorld) {

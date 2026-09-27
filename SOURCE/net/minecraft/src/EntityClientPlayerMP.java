@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import io.github.C0000374.CatHack.Modules.Player.CNoFallDamage;
+import io.github.C0000374.CatHack.Modules.Render.FreeCamera.CFreeCamera;
 import net.minecraft.client.Minecraft;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
@@ -39,6 +40,11 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     public void sendMotionUpdates() {
         
         boolean OnGround;
+        
+        if (CFreeCamera.Instance.IsActive) {
+            this.sendQueue.addToSendQueue(new Packet0KeepAlive());
+            return;
+        }
         
         if (this.inventoryUpdateTickCounter++ == 20) {
             this.sendInventoryChanged();

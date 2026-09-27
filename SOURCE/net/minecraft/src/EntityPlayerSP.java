@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import io.github.C0000374.CatHack.Modules.Player.CNoFallDamage;
+import io.github.C0000374.CatHack.Modules.Render.FreeCamera.CFreeCamera;
 import net.minecraft.client.Minecraft;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -15,7 +16,7 @@ public class EntityPlayerSP extends EntityPlayer {
         this.mc = var1;
         this.dimension = var4;
         if (var3 != null && var3.username != null && var3.username.length() > 0) {
-            this.skinUrl = "http://s3.amazonaws.com/MinecraftSkins/" + var3.username + ".png";
+            this.skinUrl = "http://icebergcraft.com:6543/api/Minecraft/GetSkinByUsername/?username=" + var3.username + ".png";
         }
 
         this.username = var3.username;
@@ -27,9 +28,16 @@ public class EntityPlayerSP extends EntityPlayer {
 
     public void updatePlayerActionState() {
         super.updatePlayerActionState();
-        this.moveStrafing = this.movementInput.moveStrafe;
-        this.moveForward = this.movementInput.moveForward;
-        this.isJumping = this.movementInput.jump;
+        if (!CFreeCamera.Instance.IsActive) {
+            this.moveStrafing = this.movementInput.moveStrafe;
+            this.moveForward = this.movementInput.moveForward;
+            this.isJumping = this.movementInput.jump;
+        }
+        else {
+            this.moveStrafing = 0.0F;
+            this.moveForward = 0.0F;
+            this.isJumping = false;
+        }
     }
 
     public void onLivingUpdate() {
@@ -80,7 +88,7 @@ public class EntityPlayerSP extends EntityPlayer {
         }
 
         this.movementInput.updatePlayerMoveState(this);
-        if (this.movementInput.sneak && this.ySize < 0.2F) {
+        if (this.movementInput.sneak && this.ySize < 0.2F && !CFreeCamera.Instance.IsActive) {
             this.ySize = 0.2F;
         }
 
@@ -149,7 +157,7 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     public boolean isSneaking() {
-        return this.movementInput.sneak && !this.sleeping;
+        return this.movementInput.sneak && !this.sleeping && !CFreeCamera.Instance.IsActive;
     }
 
     public void setHealth(int var1) {

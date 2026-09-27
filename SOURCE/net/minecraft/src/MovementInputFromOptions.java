@@ -50,6 +50,8 @@ public class MovementInputFromOptions extends MovementInput {
     public void updatePlayerMoveState(EntityPlayer var1) {
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;
+        this.MoveY = 0.0F;
+        
         if (this.movementKeyStates[0]) {
             ++this.moveForward;
         }
@@ -73,5 +75,7 @@ public class MovementInputFromOptions extends MovementInput {
             this.moveForward = (float)((double)this.moveForward * 0.3D);
         }
 
+        if (this.jump) this.MoveY++;
+        if (this.sneak) this.MoveY--;
     }
 }
