@@ -15,7 +15,7 @@ public class Packet255KickDisconnect extends Packet {
     }
 
     public void readPacketData(DataInputStream var1) throws IOException {
-        this.reason = readString(var1, 100);
+        this.reason = readString(var1, 200);
     }
 
     public void writePacketData(DataOutputStream var1) throws IOException {
