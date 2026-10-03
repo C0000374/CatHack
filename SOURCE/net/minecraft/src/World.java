@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.Modules.Movement.CWalkOnLiquid;
-import io.github.C0000374.CatHack.Modules.Render.CFullBright;
+import io.github.C0000374.HCl.Modules.Movement.CWalkOnLiquid;
+import io.github.C0000374.HCl.Modules.Render.CFullBright;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;

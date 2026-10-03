@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.Modules.World.CInstantMine;
+import io.github.C0000374.HCl.Modules.World.CInstantMine;
 import net.minecraft.client.Minecraft;
 
 public class PlayerControllerMP extends PlayerController {

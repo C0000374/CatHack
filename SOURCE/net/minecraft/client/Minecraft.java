@@ -1,8 +1,8 @@
 package net.minecraft.client;
 
-import io.github.C0000374.CatHack.CClient;
-import io.github.C0000374.CatHack.Gui.CConsole;
-import io.github.C0000374.CatHack.Modules.Render.FreeCamera.CFreeCamera;
+import io.github.C0000374.HCl.CClient;
+import io.github.C0000374.HCl.Gui.CConsole;
+import io.github.C0000374.HCl.Modules.Render.FreeCamera.CFreeCamera;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;

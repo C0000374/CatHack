@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.CClient;
-import io.github.C0000374.CatHack.Gui.CConsole;
+import io.github.C0000374.HCl.CClient;
+import io.github.C0000374.HCl.Gui.CConsole;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,7 +198,7 @@ public class GuiIngame extends Gui {
         }
         else {
             
-            var8.drawStringWithShadow("CatHack " + CClient.Version, 2, 2, 0xFFFFFF);
+            var8.drawStringWithShadow("HCl " + CClient.Version, 2, 2, 0xFFFFFF);
         }
 
         if (this.recordPlayingUpFor > 0) {

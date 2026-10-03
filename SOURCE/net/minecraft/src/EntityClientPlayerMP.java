@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.Modules.Player.CNoFallDamage;
-import io.github.C0000374.CatHack.Modules.Render.FreeCamera.CFreeCamera;
+import io.github.C0000374.HCl.Modules.Player.CNoFallDamage;
+import io.github.C0000374.HCl.Modules.Render.FreeCamera.CFreeCamera;
 import net.minecraft.client.Minecraft;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {

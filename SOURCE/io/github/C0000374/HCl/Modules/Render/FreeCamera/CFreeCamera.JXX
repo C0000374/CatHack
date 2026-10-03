@@ -1,0 +1,63 @@
+//++
+//
+// Copyright (C) C0000374
+//
+// Module:
+//     CFreeCamera.JXX
+//
+// Revision History:
+//     25/09/26 C0000374 Initial creation.
+//
+//--
+
+package io.github.C0000374.HCl.Modules.Render.FreeCamera;
+
+#include <HCL.INC>
+
+import io.github.C0000374.HCl.BSE$MODOBJ;
+import net.minecraft.client.Minecraft;
+
+public final class CFreeCamera extends BSE$MODOBJ {
+    
+    public static CFreeCamera Instance;
+    public Minecraft MinecraftInstance;
+    public boolean ThirdPersonView;
+    
+    public
+    CFreeCamera(
+        IN Minecraft MinecraftInstance
+        )
+    {
+        super("FreeCamera", ME$_BIT(ME$ENABLE) | ME$_BIT(ME$DISABLE) | ME$_BIT(ME$PLAYER_UPDATE_POST));
+        this.MinecraftInstance = MinecraftInstance;
+        Instance = this;
+        return;
+    }
+    
+    @Override
+    public
+    void
+    HandleEvent(
+        IN int EventId,
+        IN OUT Object ParameterW OPTIONAL,
+        IN OUT Object ParameterL OPTIONAL
+        )
+    {
+        switch (EventId) {
+        case ME$ENABLE:
+            this.ThirdPersonView = this.MinecraftInstance.gameSettings.thirdPersonView;
+            this.MinecraftInstance.renderViewEntity = new CCameraEntity();
+            break;
+            
+        case ME$DISABLE:
+            this.MinecraftInstance.renderViewEntity = this.MinecraftInstance.thePlayer;
+            this.MinecraftInstance.gameSettings.thirdPersonView = this.ThirdPersonView;
+            break;
+            
+        case ME$PLAYER_UPDATE_POST:
+            if (this.MinecraftInstance.renderViewEntity instanceof CCameraEntity) ((CCameraEntity)this.MinecraftInstance.renderViewEntity).Update();
+            break;
+        }
+        return;
+    }
+}

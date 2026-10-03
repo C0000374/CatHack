@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-import io.github.C0000374.CatHack.CClient;
+import io.github.C0000374.HCl.CClient;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -116,7 +116,7 @@ public class GuiMainMenu extends GuiScreen {
         this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 16776960);
         GL11.glPopMatrix();
         
-        this.drawString(this.fontRenderer, "CatHack " + CClient.Version, 2, 2, 0xFFFFFF);
+        this.drawString(this.fontRenderer, "HCl " + CClient.Version, 2, 2, 0xFFFFFF);
         this.drawString(this.fontRenderer, "Made by C0000374.", 2, 12, 0xFFFFFF);
         
         String var9 = "Copyright Mojang AB. Do not distribute.";
